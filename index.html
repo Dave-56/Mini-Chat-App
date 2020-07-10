@@ -58,6 +58,17 @@
         margin-left: 0.2rem;
         margin-right: 0.2rem;
       }
+      .chat-message {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+      }
+      .chat-message {
+        padding: 5px 10px;
+      }
+      .chat-message:nth-child(odd) {
+        background: #eee;
+      }
     </style>
   </head>
   <body>
@@ -70,22 +81,28 @@
           </h1>
           <div id="status"></div>
           <div id="chat">
-            <input
-              type="text"
-              id="username"
-              class="form-control"
-              placeholder="Enter name..."
-            />
+            <form action="">
+              <input
+                type="text"
+                id="username"
+                class="form-control"
+                placeholder="Enter name..."
+              />
+            </form>
             <br />
             <div class="card">
               <div id="messages" class="card-block"></div>
             </div>
             <br />
-            <textarea
-              id="textarea"
-              class="form-control"
-              placeholder="Enter message..."
-            ></textarea>
+            <form action="">
+              <input
+                id="m"
+                type="textarea"
+                class="form-control"
+                placeholder="Enter message..."
+                autocomplete="off"
+              /><br /><button>Send</button>
+            </form>
           </div>
         </div>
       </div>
@@ -97,7 +114,31 @@
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script>
-      const socket = io();
+      $(() => {
+        const socket = io();
+        $('form').submit((e) => {
+          e.preventDefault();
+          //   console.log($('#username').val());
+          //   console.log($('#m').val());
+          socket.emit('input', {
+            name: $('#username').val(),
+            message: $('#m').val(),
+          });
+          //reset both inputs
+          $('#username').val('');
+          $('#m').val('');
+          //   socket.emit('chat message', $('#m').val());
+        });
+        socket.on('chat message', (data) => {
+          for (let i = 0; i < data.length; i++) {
+            //build out message div
+            let message = document.createElement('div');
+            message.setAttribute('class', 'chat-message');
+            message.textContent = data[i].name + ': ' + data[i].message;
+            $('#messages').append(message);
+          }
+        });
+      });
     </script>
   </body>
 </html>
