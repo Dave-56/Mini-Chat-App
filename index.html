@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="stylesheet" href="style.css" />
     <!-- Font awesome-->
     <link
       rel="stylesheet"
@@ -19,7 +18,47 @@
       integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
       crossorigin="anonymous"
     />
-    <title>MongoChat</title>
+    <title>MiniChat</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      #messages {
+        height: 300px;
+      }
+
+      body {
+        background-color: #f7f7f7;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        margin: 0;
+        font-family: 'Lato', sans-serif;
+      }
+
+      footer {
+        /* margin: 3rem auto; */
+        align-items: center;
+        text-align: center;
+        width: 100%;
+        height: 2.5rem;
+        bottom: 0;
+        position: absolute;
+      }
+
+      a,
+      i {
+        color: black;
+      }
+
+      i {
+        margin-left: 0.2rem;
+        margin-right: 0.2rem;
+      }
+    </style>
   </head>
   <body>
     <div class="container">
@@ -57,6 +96,8 @@
     </footer>
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script></script>
+    <script>
+      const socket = io();
+    </script>
   </body>
 </html>
